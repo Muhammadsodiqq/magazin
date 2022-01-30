@@ -2,7 +2,9 @@ import {Sequelize} from "sequelize";
 import config from "../config.js";
 import Models from "./models.js";
 
-const sequelize  = new Sequelize(config.DB_STRING)
+const sequelize  = new Sequelize(config.DB_STRING, {
+    logging:false
+})
 
 async function data () {
     try {
