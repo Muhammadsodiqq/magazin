@@ -33,7 +33,7 @@ export default class Models {
             },
             data_comment:{
                 type:Sequelize.DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
         });
     }

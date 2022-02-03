@@ -28,7 +28,7 @@ async function main () {
     routes(app)
 
     //server run
-    server.listen(config.PORT, _=> console.log("SERVER READY at http://localhost:" + config.PORT))
+    server.listen(config.PORT,)
 }
 
 main()

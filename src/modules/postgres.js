@@ -3,7 +3,7 @@ import config from "../config.js";
 import Models from "./models.js";
 
 const sequelize  = new Sequelize(config.DB_STRING, {
-    logging:false
+    logging:true
 })
 
 async function data () {
@@ -12,7 +12,7 @@ async function data () {
         db.data = await Models.DataModel(Sequelize,sequelize)
         await sequelize.authenticate();
 
-        // await sequelize.sync({force:true})
+        // await sequelize.sync({alter:true})
 
 
         return db;
