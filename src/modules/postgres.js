@@ -12,7 +12,7 @@ async function data () {
         db.data = await Models.DataModel(Sequelize,sequelize)
         await sequelize.authenticate();
 
-        // await sequelize.sync({alter:true})
+        await sequelize.sync({alter:true})
 
 
         return db;

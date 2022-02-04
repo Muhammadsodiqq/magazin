@@ -43,6 +43,8 @@ export default class Validations {
             data_kunlik:Joi.number()
                 .required()
                 .error(Error("kunlik is invalid")),
+            data_comment:Joi.string()
+                .error(Error("comment is invalid")),
         })
     }
 

@@ -54,6 +54,7 @@ export default class HomeController {
                 data_terminal:data.data_terminal,
                 data_kelgan:data.data_kelgan,
                 data_kunlik:data.data_kunlik,
+                data_comment:data.data_comment,
             }, {
                 where:{
                     data_id:data.id
