@@ -21,6 +21,9 @@ export default class Validations {
             data_kunlik:Joi.number()
                 .required()
                 .error(Error("kunlik is invalid")),
+            user_id:Joi.string()
+                .required()
+                .error(Error("id is invalid")),
             data_comment:Joi.string()
                 .error(Error("comment is invalid")),
         })
@@ -45,6 +48,42 @@ export default class Validations {
                 .error(Error("kunlik is invalid")),
             data_comment:Joi.string()
                 .error(Error("comment is invalid")),
+        })
+    }
+    static QarzdorValidation () {
+        return Joi.object({
+            user_name:Joi.string()
+                .required()
+                .error(Error("invalid data")),
+        })
+    }
+
+    static AdminValidation () {
+        return Joi.object({
+            user_name:Joi.string()
+                .required()
+                .error(Error("invalid data")),
+            user_password:Joi.string()
+                .min(3)
+                .required()
+                .error(Error("invalid data")),
+            user_email:Joi.string()
+                .pattern(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+                .required()
+                .error(Error("invalid data")),
+        })
+    }
+
+    static loginValidation () {
+        return Joi.object({
+            user_password:Joi.string()
+                .min(3)
+                .required()
+                .error(Error("invalid data")),
+            user_email:Joi.string()
+                .pattern(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+                .required()
+                .error(Error("invalid data")),
         })
     }
 
