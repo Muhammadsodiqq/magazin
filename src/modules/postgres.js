@@ -14,21 +14,21 @@ async function data () {
         await sequelize.authenticate();
 
 
-        await db.users.hasMany(db.data,{
-            foreignKey:{
-              name:"user_id",
-              allowNull:true
-            }
-          })
+        // await db.users.hasMany(db.data,{
+        //     foreignKey:{
+        //       name:"user_id",
+        //       allowNull:true
+        //     }
+        //   })
       
-          await db.data.belongsTo(db.users, {
-            foreignKey: {
-                name: "user_id",
-                allowNull: false
-            }
-        })
+        //   await db.data.belongsTo(db.users, {
+        //     foreignKey: {
+        //         name: "user_id",
+        //         allowNull: false
+        //     }
+        // })
 
-        // await sequelize.sync({force:true})
+        await sequelize.sync({force:true})
 
         return db;
     } catch (error) {

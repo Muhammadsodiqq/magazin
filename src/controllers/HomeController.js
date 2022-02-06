@@ -15,7 +15,6 @@ export default class HomeController {
                 data_kelgan:data.data_kelgan,
                 data_kunlik:data.data_kunlik,
                 data_comment:data.data_comment,
-                user_id:data.user_id,
             })
 
             respone.status(200).json({
