@@ -11,24 +11,41 @@ async function data () {
         let db = {};
         db.users = await Models.UserModel(Sequelize,sequelize)
         db.data = await Models.DataModel(Sequelize,sequelize)
-        await sequelize.authenticate();
+        db.qarzdor = await Models.QarzdorModel(Sequelize,sequelize)
+        db.qarz = await Models.QarzModel(Sequelize,sequelize)
+        db.ishchi = await Models.XizmatchiModel(Sequelize,sequelize)
+        db.ish = await Models.XizmatModel(Sequelize,sequelize)
 
 
-        // await db.users.hasMany(db.data,{
-        //     foreignKey:{
-        //       name:"user_id",
-        //       allowNull:true
-        //     }
-        //   })
+        await db.qarzdor.hasMany(db.qarz,{
+            foreignKey:{
+              name:"user_id",
+              allowNull:true
+            }
+          })
       
-        //   await db.data.belongsTo(db.users, {
-        //     foreignKey: {
-        //         name: "user_id",
-        //         allowNull: false
-        //     }
-        // })
+          await db.qarz.belongsTo(db.qarzdor, {
+            foreignKey: {
+                name: "user_id",
+                allowNull: false
+            }
+        })
 
-        await sequelize.sync({force:true})
+        await db.ishchi.hasMany(db.ish,{
+            foreignKey:{
+              name:"user_id",
+              allowNull:true
+            }
+          })
+      
+          await db.ish.belongsTo(db.ishchi, {
+            foreignKey: {
+                name: "user_id",
+                allowNull: false
+            }
+        })
+
+        // await sequelize.sync({alter:true})
 
         return db;
     } catch (error) {

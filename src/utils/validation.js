@@ -26,8 +26,31 @@ export default class Validations {
         })
     }
 
-    static editValidation () {
+    static QarzValidation () {
         return Joi.object({
+            Sana:Joi.date()
+                .required()
+                .error(Error("date is invalid")),
+            olindi:Joi.number()
+                .required()
+                .error(Error("olindi is invalid")),
+            berildi:Joi.number()
+                .required()
+                .error(Error("berildi is invalid")),
+            izoh:Joi.string()
+                .error(Error("comment is invalid")),
+            id:Joi.string()
+                .required()
+                .error(Error("invalid id")),
+        })
+    }
+
+    static editValidation () {
+        
+        return Joi.object({
+            data_date:Joi.date()
+                .required()
+                .error(Error("date is invalid")),
             id:Joi.string()
                 .required()
                 .error(Error("invalid id")),
@@ -45,6 +68,9 @@ export default class Validations {
                 .error(Error("kunlik is invalid")),
             data_comment:Joi.string()
                 .error(Error("comment is invalid")),
+            data_name:Joi.string()
+                .required()
+                .error(Error("comment is invalid")),
         })
     }
     static QarzdorValidation () {
@@ -57,9 +83,6 @@ export default class Validations {
 
     static AdminValidation () {
         return Joi.object({
-            user_name:Joi.string()
-                .required()
-                .error(Error("invalid data")),
             user_password:Joi.string()
                 .min(3)
                 .required()

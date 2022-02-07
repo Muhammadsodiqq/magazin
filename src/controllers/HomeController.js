@@ -6,7 +6,6 @@ export default class HomeController {
     static async addData(request,respone) {
         try {
             let data = await Validations.DataValidation().validateAsync(request.body)
-            console.log(data);
             let data1 = await request.db.data.create({
                 data_date:data.data_date,
                 data_name:data.data_name,
@@ -35,7 +34,7 @@ export default class HomeController {
         try {
             let data = await Validations.QarzdorValidation().validateAsync(request.body)
 
-            let data1 = await request.db.users.create({
+            let data1 = await request.db.qarzdor.create({
                 user_name:data.user_name,
             })
 
@@ -56,9 +55,8 @@ export default class HomeController {
         try {
             let data = await Validations.QarzdorValidation().validateAsync(request.body)
 
-            let data1 = await request.db.users.create({
+            let data1 = await request.db.ishchi.create({
                 user_name:data.user_name,
-                user_role:"ishchi"
             })
 
             respone.status(200).json({
@@ -87,7 +85,6 @@ export default class HomeController {
             if (userIsExists) throw ("User already exists");
 
             let data1 = await request.db.users.create({
-                user_name:data.user_name,
                 user_password:await bcrypt.genHash(data.user_password),
                 user_email:data.user_email,
                 user_role:"superadmin"
@@ -158,9 +155,25 @@ export default class HomeController {
             })
         }
     }
-    static async getUsers(request,respone) {
+    static async getQarzdor(request,respone) {
         try {
-            let data1 = await request.db.users.findAll()
+            let data1 = await request.db.qarzdor.findAll()
+
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                data: data1,
+            })
+        } catch (error) {
+            respone.status(400).json({
+                ok:false,
+                message:error + ""
+            })
+        }
+    }
+    static async getXizmatchi(request,respone) {
+        try {
+            let data1 = await request.db.ishchi.findAll()
 
             respone.status(200).json({
                 ok: true,
@@ -175,9 +188,34 @@ export default class HomeController {
         }
     }
 
-    static async getDataById(request,respone) {
+    static async getQarzDataById(request,respone) {
         try {
-            let data1 = await request.db.data.findAll({
+            let data1 = await request.db.qarz.findAll({
+                where:{
+                    user_id:request.params.id
+                }
+            })
+
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                data: data1,
+            })
+        } catch (error) {
+
+            if (error + "".includes('SequelizeDatabaseError: invalid input syntax for type uuid')) {
+                error = 'invalid data'
+            }
+            respone.status(400).json({
+                ok:false,
+                message:error + ""
+            })
+        }
+    }
+
+    static async getIshDataById(request,respone) {
+        try {
+            let data1 = await request.db.ish.findAll({
                 where:{
                     user_id:request.params.id
                 }
@@ -210,9 +248,67 @@ export default class HomeController {
                 data_kelgan:data.data_kelgan,
                 data_kunlik:data.data_kunlik,
                 data_comment:data.data_comment,
+                data_name:data.data_name,
+                data_date:data.data_date,
             }, {
                 where:{
                     data_id:data.id
+                }
+            })
+
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                data: data1,
+            })
+        } catch (error) {
+            respone.status(400).json({
+                ok:false,
+                message:error + ""
+            })
+        }
+    }
+
+    static async editQarz(request,respone) {
+        try {
+            let data = await Validations.QarzValidation().validateAsync(request.body);
+
+            let data1 = await request.db.qarz.update({
+                Sana:data.Sana,
+                olindi:data.olindi,
+                berildi:data.berildi,
+                izoh:data.izoh,
+            }, {
+                where:{
+                    qarz_id:data.id
+                }
+            })
+
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                data: data1,
+            })
+        } catch (error) {
+            respone.status(400).json({
+                ok:false,
+                message:error + ""
+            })
+        }
+    }
+
+    static async editIsh(request,respone) {
+        try {
+            let data = await Validations.QarzValidation().validateAsync(request.body);
+
+            let data1 = await request.db.ish.update({
+                Sana:data.Sana,
+                olindi:data.olindi,
+                berildi:data.berildi,
+                izoh:data.izoh,
+            }, {
+                where:{
+                    ish_id:data.id
                 }
             })
 
@@ -237,6 +333,101 @@ export default class HomeController {
                 where:{
                     data_id:data.id
                 }
+            })
+
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                data: data1,
+            })
+        } catch (error) {
+            respone.status(400).json({
+                ok:false,
+                message:error + ""
+            })
+        }
+    }
+
+    static async deleteQarz(request,respone) {
+        try {
+            let data = await (await Validations.idValidation()).validateAsync(request.body)
+
+            let data1 = await request.db.qarz.destroy({
+                where:{
+                    qarz_id:data.id
+                }
+            })
+
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                data: data1,
+            })
+        } catch (error) {
+            respone.status(400).json({
+                ok:false,
+                message:error + ""
+            })
+        }
+    }
+    static async deleteish(request,respone) {
+        try {
+            let data = await (await Validations.idValidation()).validateAsync(request.body)
+
+            let data1 = await request.db.ish.destroy({
+                where:{
+                    ish_id:data.id
+                }
+            })
+
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                data: data1,
+            })
+        } catch (error) {
+            respone.status(400).json({
+                ok:false,
+                message:error + ""
+            })
+        }
+    }
+
+    static async addQarz(request,respone) {
+        try {
+            let data = await Validations.QarzValidation().validateAsync(request.body)
+
+            let data1 = await request.db.qarz.create({
+                Sana:data.Sana,
+                olindi:data.olindi,
+                berildi:data.berildi,
+                izoh:data.izoh,
+                user_id:data.id
+            })
+
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                data: data1,
+            })
+        } catch (error) {
+            respone.status(400).json({
+                ok:false,
+                message:error + ""
+            })
+        }
+    }
+
+    static async addIsh(request,respone) {
+        try {
+            let data = await Validations.QarzValidation().validateAsync(request.body)
+
+            let data1 = await request.db.ish.create({
+                Sana:data.Sana,
+                olindi:data.olindi,
+                berildi:data.berildi,
+                izoh:data.izoh,
+                user_id:data.id
             })
 
             respone.status(200).json({

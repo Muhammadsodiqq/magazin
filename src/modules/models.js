@@ -45,16 +45,6 @@ export default class Models {
                 defaultValue:Sequelize.UUIDV4,
                 primaryKey:true
             },
-            user_name:{
-                type:Sequelize.DataTypes.STRING,
-                allowNull: false,
-            },
-            user_role: {
-                type: Sequelize.DataTypes.ENUM,
-                values: ["superadmin","qarzdor","ishchi",],
-                allowNull: false,
-                defaultValue: "qarzdor"
-            },
             user_password:{
                 type: Sequelize.DataTypes.STRING, 
                 allowNull: true,
@@ -64,6 +54,86 @@ export default class Models {
                 is: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 allowNull: true,
                 unique: true,
+            },
+        })
+    }
+
+    static async QarzdorModel (Sequelize,sequelize) {
+        return sequelize.define("qarzdor", {
+            user_id:{
+                type:Sequelize.DataTypes.UUID,
+                defaultValue:Sequelize.UUIDV4,
+                primaryKey:true
+            },
+            user_name:{
+                type:Sequelize.DataTypes.STRING,
+                allowNull: false,
+            },
+        })
+    }
+
+    static async XizmatchiModel (Sequelize,sequelize) {
+        return sequelize.define("ishchi", {
+            user_id:{
+                type:Sequelize.DataTypes.UUID,
+                defaultValue:Sequelize.UUIDV4,
+                primaryKey:true
+            },
+            user_name:{
+                type:Sequelize.DataTypes.STRING,
+                allowNull: false,
+            },
+        })
+    }
+
+    static async QarzModel (Sequelize,sequelize) {
+        return sequelize.define("qarz", {
+            qarz_id:{
+                type:Sequelize.DataTypes.UUID,
+                defaultValue:Sequelize.UUIDV4,
+                primaryKey:true
+            },
+            Sana:{
+                type:Sequelize.DataTypes.DATEONLY,
+                allowNull: false,
+            },
+            olindi:{
+                type:Sequelize.DataTypes.STRING,
+                allowNull: false,
+            },
+            berildi:{
+                type:Sequelize.DataTypes.STRING,
+                allowNull: false,
+            },
+            izoh:{
+                type:Sequelize.DataTypes.STRING,
+                allowNull: true,
+            },
+        })
+    }
+
+    static async XizmatModel (Sequelize,sequelize) {
+        return sequelize.define("ish", {
+            ish_id:{
+                type:Sequelize.DataTypes.UUID,
+                defaultValue:Sequelize.UUIDV4,
+                primaryKey:true
+            },
+            Sana:{
+                type:Sequelize.DataTypes.DATEONLY,
+                allowNull: false,
+            },
+            olindi:{
+                type:Sequelize.DataTypes.STRING,
+                allowNull: false,
+            },
+            berildi:{
+                type:Sequelize.DataTypes.STRING,
+                allowNull: false,
+            },
+            izoh:{
+                type:Sequelize.DataTypes.STRING,
+                allowNull: true,
             },
         })
     }
