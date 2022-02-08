@@ -210,6 +210,51 @@ export default class HomeController {
         }
     }
 
+    static async GETiSHuMUMIY(request,respone) {
+        try {
+            let data2 = await request.db.ish.findAll();
+            // console.log(data2);
+            let sum = 0
+            data2.forEach(element => {
+                sum += Number(element.olindi);
+            });
+            let sum2 = 0
+            data2.forEach(element => {
+                sum2 += Number(element.berildi);
+            });
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                umumiy:sum,
+                berildi:sum2
+            })
+        } catch (error) {
+            
+        }
+    }
+
+    static async GETQarzuMUMIY(request,respone) {
+        try {
+            let data2 = await request.db.qarz.findAll();
+            // console.log(data2);
+            let sum = 0
+            data2.forEach(element => {
+                sum += Number(element.olindi);
+            });
+            let sum2 = 0
+            data2.forEach(element => {
+                sum2 += Number(element.berildi);
+            });
+            respone.status(200).json({
+                ok: true,
+                message: 'succes',
+                umumiy:sum,
+                berildi:sum2
+            })
+        } catch (error) {
+            
+        }
+    }
     static async getQarzDataById(request,respone) {
         try {
             let data1 = await request.db.qarz.findAll({

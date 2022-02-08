@@ -23,6 +23,10 @@ router.post("/login", HomeController.Login);
 router.post("/add-qarzdor",adminMiddleware, HomeController.addQarzdor);
 router.post("/add-xodim",adminMiddleware, HomeController.addXodim);
 
+router.get("/get-umumiyIsh",adminMiddleware, HomeController.GETiSHuMUMIY); 
+router.get("/get-umumiyQarz",adminMiddleware, HomeController.GETQarzuMUMIY); 
+
+
 export default {
     path:"/",
     router
